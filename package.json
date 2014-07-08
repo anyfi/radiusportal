@@ -1,0 +1,18 @@
+{
+  "name": "radiusportal",
+  "version": "0.0.1",
+  "description": "An example RADIUS-based captive portal for use with Anyfi.net software.",
+  "keywords": [
+    "Anyfi.net",
+    "RADIUS"
+  ],
+  "author": "Anyfi Networks AB",
+  "readmeFilename": "README.md",
+  "preferGlobal": true,
+  "directories": {
+    "bin": "bin"
+  },
+  "dependencies": {
+    "radius": ">=1.0.3"
+  }
+}

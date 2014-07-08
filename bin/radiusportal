@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var config = require('../config/config')
+var webserver = require('../lib/webserver')
+var radiusserver = require('../lib/radiusserver')
+var authorizer = require('../lib/authorizer')
+
+var autz_port = config["RADIUS_AUTZ_PORT"];
+var acct_port = config["RADIUS_ACCT_PORT"];
+var http_port = config["PORTAL_HTTP_PORT"];
+
+// Authorization manager
+var auth = authorizer.createAuthorizer()
+
+// HTTP server
+webserver.createServer(auth, http_port)
+
+// RADIUS server(s)
+radiusserver.createServer(auth, autz_port);
+if (autz_port != acct_port) {
+    radiusserver.createServer(auth, acct_port);
+}
+
+console.log("Started example RADIUS authorization server on port " + autz_port);
+console.log("Started example RADIUS accounting server on port " + autz_port);
+console.log("Started example captive portal on " +
+	    'http://' + config["PORTAL_HTTP_INTERFACE"] + ':' + http_port);
